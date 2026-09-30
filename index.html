@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apex Digital | Digital Marketing Agency</title>
+<meta name="description" content="Apex Digital helps ambitious brands grow faster with data-driven marketing, creative strategy, and measurable results." />
+
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: '#15130F',
+            light: '#241F17',
+            dark: '#0C0B08'
+          },
+          cream: {
+            DEFAULT: '#F7F1E4',
+            dark: '#ECE1CB'
+          },
+          coral: {
+            DEFAULT: '#FF5A36',
+            dark: '#DE431F',
+            light: '#FF8B69'
+          },
+          lime: {
+            DEFAULT: '#CFFA57'
+          }
+        },
+        fontFamily: {
+          display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+          sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    position: relative;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: .05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
+
+  .dot-field {
+    background-image: radial-gradient(rgba(247,241,228,0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .dot-field-dark {
+    background-image: radial-gradient(rgba(21,19,15,0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-track { display: flex; width: max-content; animation: marquee 26s linear infinite; }
+
+  @keyframes barGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .bar-grow { animation: barGrow .9s cubic-bezier(.16,1,.3,1) both; transform-origin: bottom; }
+
+  .btn-sweep { position: relative; overflow: hidden; z-index: 0; isolation: isolate; }
+  .btn-sweep::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--sweep, #CFFA57);
+    transform: translateX(-102%);
+    transition: transform .4s cubic-bezier(.65,0,.35,1);
+    z-index: -1;
+  }
+  .btn-sweep:hover::before { transform: translateX(0); }
+  .btn-sweep:hover { color: #15130F; }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .bar-grow { animation: none; transform: none; }
+    .fade-in-up { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="bg-cream text-ink antialiased">
+
+<!-- ===================== HEADER / NAVBAR ===================== -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md transition-all">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2.5 text-xl md:text-2xl font-display font-semibold text-ink">
+        <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-coral text-ink font-bold text-lg">A</span>
+        Apex<span class="italic text-coral">Digital</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="hidden md:flex items-center gap-8 font-medium text-ink/70">
+        <li><a href="#home" class="nav-link hover:text-coral transition-colors">Home</a></li>
+        <li><a href="#services" class="nav-link hover:text-coral transition-colors">Services</a></li>
+        <li><a href="#about" class="nav-link hover:text-coral transition-colors">About</a></li>
+        <li><a href="#testimonials" class="nav-link hover:text-coral transition-colors">Testimonials</a></li>
+        <li><a href="#contact" class="nav-link hover:text-coral transition-colors">Contact</a></li>
+      </ul>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <a href="#contact" style="--sweep:#15130F" class="btn-sweep hidden md:inline-block bg-coral text-ink font-semibold px-5 py-2.5 rounded-lg transition-colors">
+          <span class="relative">Get Started</span>
+        </a>
+        <button id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" class="md:hidden text-ink focus:outline-none focus:ring-2 focus:ring-coral rounded-md p-2">
+          <svg id="icon-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden pb-6">
+      <ul class="flex flex-col gap-4 font-medium text-ink/70">
+        <li><a href="#home" class="mobile-nav-link block py-1 hover:text-coral transition-colors">Home</a></li>
+        <li><a href="#services" class="mobile-nav-link block py-1 hover:text-coral transition-colors">Services</a></li>
+        <li><a href="#about" class="mobile-nav-link block py-1 hover:text-coral transition-colors">About</a></li>
+        <li><a href="#testimonials" class="mobile-nav-link block py-1 hover:text-coral transition-colors">Testimonials</a></li>
+        <li><a href="#contact" class="mobile-nav-link block py-1 hover:text-coral transition-colors">Contact</a></li>
+        <li>
+          <a href="#contact" class="mobile-nav-link inline-block bg-coral text-ink font-semibold px-5 py-2.5 rounded-lg transition-colors">
+            Get Started
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ===================== HERO SECTION ===================== -->
+  <section id="home" class="relative bg-ink overflow-hidden">
+    <div class="absolute inset-0 dot-field"></div>
+    <div class="absolute -top-32 -right-20 w-[28rem] h-[28rem] bg-coral/25 rounded-full blur-[110px]"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-lime/10 rounded-full blur-[100px]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-44 md:pb-24">
+      <div class="grid md:grid-cols-12 gap-y-14 md:gap-x-10 items-center">
+
+        <!-- Copy -->
+        <div class="md:col-span-7 text-center md:text-left fade-in-up is-visible">
+          <span class="inline-flex items-center gap-2 bg-white/5 text-cream/90 font-semibold text-sm px-4 py-1.5 rounded-full mb-6 border border-white/15">
+            <span class="w-1.5 h-1.5 rounded-full bg-lime"></span>
+            Strategy · Creativity · Measurable Growth
+          </span>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-[3.75rem] font-semibold text-cream leading-[1.08] mb-6">
+            Marketing that<br class="hidden md:block" />
+            <span class="italic text-coral">actually</span> moves<br class="hidden md:block" />
+            the needle.
+          </h1>
+          <p class="text-lg text-cream/60 mb-9 max-w-xl mx-auto md:mx-0">
+            Apex Digital blends data, creativity, and strategy to help ambitious businesses attract customers, boost conversions, and scale with confidence.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+            <a href="#contact" style="--sweep:#CFFA57" class="btn-sweep w-full sm:w-auto text-center bg-coral text-ink font-semibold px-8 py-3.5 rounded-lg transition-colors">
+              Contact Us
+            </a>
+            <a href="#services" class="w-full sm:w-auto text-center bg-transparent hover:bg-white/10 text-cream font-semibold px-8 py-3.5 rounded-lg border border-white/25 transition-colors">
+              Explore Services
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual composition -->
+        <div class="md:col-span-5 relative fade-in-up is-visible mt-6 md:mt-0">
+          <div class="absolute -inset-3 bg-coral/20 rounded-[2rem] rotate-3"></div>
+          <div class="relative aspect-[4/3] rounded-[2rem] bg-ink-light border border-white/10 shadow-2xl p-7 flex flex-col justify-end overflow-hidden">
+            <div class="absolute top-5 left-6 text-xs tracking-widest uppercase text-cream/40 font-semibold">Pipeline growth</div>
+            <div class="flex items-end gap-3 h-32">
+              <div class="w-full rounded-t-md bg-cream/25 bar-grow" style="height:38%; animation-delay:.05s"></div>
+              <div class="w-full rounded-t-md bg-cream/25 bar-grow" style="height:54%; animation-delay:.15s"></div>
+              <div class="w-full rounded-t-md bg-cream/25 bar-grow" style="height:46%; animation-delay:.25s"></div>
+              <div class="w-full rounded-t-md bg-cream/25 bar-grow" style="height:70%; animation-delay:.35s"></div>
+              <div class="w-full rounded-t-md bg-cream/25 bar-grow" style="height:63%; animation-delay:.45s"></div>
+              <div class="w-full rounded-t-md bg-lime bar-grow" style="height:88%; animation-delay:.55s"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Marquee strip -->
+    <div class="relative border-t border-white/10 py-4 overflow-hidden">
+      <div class="marquee-track text-cream/40 font-display italic text-lg gap-10">
+        <div class="flex gap-10 pr-10">
+          <span>SEO &amp; Search</span><span class="text-coral">&middot;</span>
+          <span>Paid Advertising</span><span class="text-coral">&middot;</span>
+          <span>Social Media</span><span class="text-coral">&middot;</span>
+          <span>Brand Strategy</span><span class="text-coral">&middot;</span>
+          <span>Conversion Optimization</span><span class="text-coral">&middot;</span>
+          <span>Analytics</span><span class="text-coral">&middot;</span>
+        </div>
+        <div class="flex gap-10 pr-10" aria-hidden="true">
+          <span>SEO &amp; Search</span><span class="text-coral">&middot;</span>
+          <span>Paid Advertising</span><span class="text-coral">&middot;</span>
+          <span>Social Media</span><span class="text-coral">&middot;</span>
+          <span>Brand Strategy</span><span class="text-coral">&middot;</span>
+          <span>Conversion Optimization</span><span class="text-coral">&middot;</span>
+          <span>Analytics</span><span class="text-coral">&middot;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagonal cut into next section -->
+    <div class="absolute bottom-0 inset-x-0 h-14 md:h-20 bg-cream" style="clip-path: polygon(0 100%, 100% 45%, 100% 100%, 0 100%);"></div>
+  </section>
+
+  <!-- ===================== SERVICES SECTION ===================== -->
+  <section id="services" class="relative bg-cream py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-14 fade-in-up">
+        <span class="text-coral font-semibold uppercase tracking-wide text-sm">What We Do</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mt-3 mb-4">Services built to drive growth</h2>
+        <p class="text-ink/55">Full-funnel marketing solutions designed to get you found, get you chosen, and keep customers coming back.</p>
+      </div>
+
+      <div class="border-t border-ink/10">
+
+        <!-- Service 1 -->
+        <div class="group grid md:grid-cols-12 items-center gap-3 md:gap-6 py-8 border-b border-ink/10 hover:bg-ink transition-colors duration-300 px-3 -mx-3 rounded-lg fade-in-up">
+          <span class="md:col-span-2 font-display text-3xl md:text-4xl text-ink/15 group-hover:text-coral transition-colors">01</span>
+          <h3 class="md:col-span-3 font-display text-xl md:text-2xl font-medium text-ink group-hover:text-cream transition-colors">SEO &amp; Search</h3>
+          <p class="md:col-span-6 text-ink/55 group-hover:text-cream/60 transition-colors text-sm md:text-base leading-relaxed">Rank higher, drive organic traffic, and turn search intent into qualified leads.</p>
+          <svg class="md:col-span-1 w-6 h-6 text-ink/30 group-hover:text-coral group-hover:translate-x-1.5 transition-all justify-self-start md:justify-self-end" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="group grid md:grid-cols-12 items-center gap-3 md:gap-6 py-8 border-b border-ink/10 hover:bg-ink transition-colors duration-300 px-3 -mx-3 rounded-lg fade-in-up">
+          <span class="md:col-span-2 font-display text-3xl md:text-4xl text-ink/15 group-hover:text-coral transition-colors">02</span>
+          <h3 class="md:col-span-3 font-display text-xl md:text-2xl font-medium text-ink group-hover:text-cream transition-colors">Paid Advertising</h3>
+          <p class="md:col-span-6 text-ink/55 group-hover:text-cream/60 transition-colors text-sm md:text-base leading-relaxed">High-ROI campaigns across Google, Meta, and TikTok, optimized daily for performance.</p>
+          <svg class="md:col-span-1 w-6 h-6 text-ink/30 group-hover:text-coral group-hover:translate-x-1.5 transition-all justify-self-start md:justify-self-end" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="group grid md:grid-cols-12 items-center gap-3 md:gap-6 py-8 border-b border-ink/10 hover:bg-ink transition-colors duration-300 px-3 -mx-3 rounded-lg fade-in-up">
+          <span class="md:col-span-2 font-display text-3xl md:text-4xl text-ink/15 group-hover:text-coral transition-colors">03</span>
+          <h3 class="md:col-span-3 font-display text-xl md:text-2xl font-medium text-ink group-hover:text-cream transition-colors">Social Media</h3>
+          <p class="md:col-span-6 text-ink/55 group-hover:text-cream/60 transition-colors text-sm md:text-base leading-relaxed">Build community and brand love with content strategy that actually gets engagement.</p>
+          <svg class="md:col-span-1 w-6 h-6 text-ink/30 group-hover:text-coral group-hover:translate-x-1.5 transition-all justify-self-start md:justify-self-end" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="group grid md:grid-cols-12 items-center gap-3 md:gap-6 py-8 border-b border-ink/10 hover:bg-ink transition-colors duration-300 px-3 -mx-3 rounded-lg fade-in-up">
+          <span class="md:col-span-2 font-display text-3xl md:text-4xl text-ink/15 group-hover:text-coral transition-colors">04</span>
+          <h3 class="md:col-span-3 font-display text-xl md:text-2xl font-medium text-ink group-hover:text-cream transition-colors">Brand Strategy</h3>
+          <p class="md:col-span-6 text-ink/55 group-hover:text-cream/60 transition-colors text-sm md:text-base leading-relaxed">Positioning, messaging, and visual identity that makes your brand impossible to ignore.</p>
+          <svg class="md:col-span-1 w-6 h-6 text-ink/30 group-hover:text-coral group-hover:translate-x-1.5 transition-all justify-self-start md:justify-self-end" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT US SECTION ===================== -->
+  <section id="about" class="py-20 md:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-14 items-center">
+
+        <div class="fade-in-up order-2 md:order-1">
+          <div class="grid grid-cols-2 gap-5">
+            <div class="rounded-2xl bg-coral/10 aspect-square flex flex-col items-center justify-center p-6 text-center">
+              <p class="font-display text-2xl md:text-3xl font-semibold text-ink">Strategy</p>
+              <p class="text-sm text-ink/50 mt-2">Clear direction</p>
+            </div>
+            <div class="rounded-2xl bg-ink/5 aspect-square flex flex-col items-center justify-center p-6 text-center mt-8">
+              <p class="font-display text-2xl md:text-3xl font-semibold text-ink">Creative</p>
+              <p class="text-sm text-ink/50 mt-2">Distinctive ideas</p>
+            </div>
+            <div class="rounded-2xl bg-ink/5 aspect-square flex flex-col items-center justify-center p-6 text-center -mt-8">
+              <p class="font-display text-2xl md:text-3xl font-semibold text-ink">Performance</p>
+              <p class="text-sm text-ink/50 mt-2">Goal-focused campaigns</p>
+            </div>
+            <div class="rounded-2xl bg-coral/10 aspect-square flex flex-col items-center justify-center p-6 text-center">
+              <p class="font-display text-2xl md:text-3xl font-semibold text-ink">Insights</p>
+              <p class="text-sm text-ink/50 mt-2">Data-informed decisions</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in-up order-1 md:order-2">
+          <span class="text-coral font-semibold uppercase tracking-wide text-sm">About Apex Digital</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mt-3 mb-5">We're a team obsessed with your growth</h2>
+          <p class="text-ink/55 mb-4 leading-relaxed">
+            Apex Digital brings strategy, creativity, and data-informed thinking together to help businesses build a clearer path to growth.
+          </p>
+          <p class="text-ink/55 mb-8 leading-relaxed">
+            Every business is different. Our approach is built around your goals, your audience, and the outcomes you want to measure.
+          </p>
+          <a href="#contact" style="--sweep:#15130F" class="btn-sweep inline-block bg-coral text-ink font-semibold px-7 py-3 rounded-lg transition-colors">
+            Work With Us
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS SECTION ===================== -->
+  <section id="testimonials" class="relative bg-ink py-20 md:py-28 overflow-hidden">
+    <div class="absolute inset-0 dot-field"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-14 fade-in-up">
+        <span class="text-coral font-semibold uppercase tracking-wide text-sm">Social Proof</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold text-cream mt-3 mb-4">What our clients say</h2>
+        <p class="text-cream/50">We measure success by our clients' results — here's some of what they've told us.</p>
+      </div>
+
+      <div class="rounded-2xl border border-white/15 bg-white/5 p-8 md:p-10 text-cream/70">
+        <h3 class="font-display text-2xl text-cream mb-3">Client stories coming soon</h3>
+        <p class="max-w-2xl leading-relaxed">We’ll share verified client feedback and project results here once they’re available. We don’t publish invented testimonials or performance claims.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT FORM SECTION ===================== -->
+  <section id="contact" class="py-20 md:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-14">
+
+        <!-- Info column -->
+        <div class="fade-in-up">
+          <span class="text-coral font-semibold uppercase tracking-wide text-sm">Get In Touch</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mt-3 mb-5">Let's grow your business together</h2>
+          <p class="text-ink/55 mb-8 leading-relaxed">
+            Tell us a bit about your goals using the form. This form is configured for Netlify Forms; submissions are collected after the site is deployed with form detection enabled.
+          </p>
+
+          <div class="rounded-xl bg-cream/70 border border-ink/10 p-5">
+            <p class="font-semibold text-ink mb-2">Send us a message</p>
+            <p class="text-sm text-ink/60 leading-relaxed">Use the contact form to tell us about your project. Add your verified business email, phone number, and location here when they’re ready to publish.</p>
+          </div>
+        </div>
+
+        <!-- Form column -->
+        <div class="fade-in-up">
+          <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="bg-cream/60 rounded-2xl p-6 sm:p-8 border border-ink/10">
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="hidden"><label>Leave this field empty: <input name="bot-field" /></label></p>
+<div class="grid sm:grid-cols-2 gap-5 mb-5">
+              <div>
+                <label for="name" class="block text-sm font-semibold text-ink/80 mb-1.5">Name</label>
+                <input type="text" id="name" name="name" autocomplete="name" required minlength="2" placeholder="Jamila Osei"
+                  class="w-full px-4 py-2.5 rounded-lg border border-ink/20 bg-white focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral transition-colors" />
+                <p class="error-msg text-red-500 text-xs mt-1 hidden">Please enter your name.</p>
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-semibold text-ink/80 mb-1.5">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required placeholder="jamila@company.com"
+                  class="w-full px-4 py-2.5 rounded-lg border border-ink/20 bg-white focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral transition-colors" />
+                <p class="error-msg text-red-500 text-xs mt-1 hidden">Please enter a valid email address.</p>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <label for="subject" class="block text-sm font-semibold text-ink/80 mb-1.5">Subject</label>
+              <input type="text" id="subject" name="subject" required minlength="2" placeholder="How can we help?"
+                class="w-full px-4 py-2.5 rounded-lg border border-ink/20 bg-white focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral transition-colors" />
+              <p class="error-msg text-red-500 text-xs mt-1 hidden">Please enter a subject.</p>
+            </div>
+
+            <div class="mb-6">
+              <label for="message" class="block text-sm font-semibold text-ink/80 mb-1.5">Message</label>
+              <textarea id="message" name="message" rows="5" required minlength="10" placeholder="Tell us about your project or goals..."
+                class="w-full px-4 py-2.5 rounded-lg border border-ink/20 bg-white focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral transition-colors resize-none"></textarea>
+              <p class="error-msg text-red-500 text-xs mt-1 hidden">Please enter a message (min. 10 characters).</p>
+            </div>
+
+            <button type="submit" style="--sweep:#CFFA57"
+              class="btn-sweep w-full bg-ink text-cream font-semibold px-6 py-3.5 rounded-lg transition-colors">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-ink text-cream/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+      <div>
+        <a href="#home" class="flex items-center gap-2.5 text-xl font-display font-semibold text-cream mb-4">
+          <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-coral text-ink font-bold text-lg">A</span>
+          Apex<span class="italic text-coral">Digital</span>
+        </a>
+        <p class="text-sm leading-relaxed">Data-driven marketing for brands who want to grow with intention.</p>
+      </div>
+
+      <div>
+        <h4 class="text-cream font-semibold mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#home" class="hover:text-coral transition-colors">Home</a></li>
+          <li><a href="#services" class="hover:text-coral transition-colors">Services</a></li>
+          <li><a href="#about" class="hover:text-coral transition-colors">About</a></li>
+          <li><a href="#testimonials" class="hover:text-coral transition-colors">Testimonials</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-cream font-semibold mb-4">Services</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#services" class="hover:text-coral transition-colors">SEO &amp; Search</a></li>
+          <li><a href="#services" class="hover:text-coral transition-colors">Paid Advertising</a></li>
+          <li><a href="#services" class="hover:text-coral transition-colors">Social Media</a></li>
+          <li><a href="#services" class="hover:text-coral transition-colors">Brand Strategy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-cream font-semibold mb-4">Social Media</h4>
+        <p class="text-sm leading-relaxed">Official social profiles will be added here.</p>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/10 mt-10 pt-6 text-sm text-center">
+      &copy; <span id="year"></span> Apex Digital. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+  // Footer copyright year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  function closeMobileMenu() {
+    mobileMenu.classList.add('hidden');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      mobileMenu.classList.remove('hidden');
+      iconOpen.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+      menuToggle.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // Navbar shadow/background on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      navbar.classList.add('shadow-md');
+    } else {
+      navbar.classList.remove('shadow-md');
+    }
+  });
+
+  // Highlight active nav link based on section in view
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function setActiveLink() {
+    let currentId = '';
+    const scrollPos = window.scrollY + 120;
+
+    sections.forEach(section => {
+      if (scrollPos >= section.offsetTop) {
+        currentId = section.id;
+      }
+    });
+
+    navLinks.forEach(link => {
+      const isActive = link.getAttribute('href') === `#${currentId}`;
+      link.classList.toggle('text-coral', isActive);
+      link.classList.toggle('font-semibold', isActive);
+    });
+  }
+  window.addEventListener('scroll', setActiveLink);
+  setActiveLink();
+
+  // Fade-in-up animation on scroll using IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+  // Testimonial carousel controls
+  const testiTrack = document.getElementById('testi-track');
+  const testiPrev = document.getElementById('testi-prev');
+  const testiNext = document.getElementById('testi-next');
+  if (testiTrack && testiPrev && testiNext) {
+    testiPrev.addEventListener('click', () => {
+      testiTrack.scrollBy({ left: -testiTrack.clientWidth * 0.85, behavior: 'smooth' });
+    });
+    testiNext.addEventListener('click', () => {
+      testiTrack.scrollBy({ left: testiTrack.clientWidth * 0.85, behavior: 'smooth' });
+    });
+  }
+
+  // Contact form: native required-field validation is enabled.
+  // Netlify Forms handles submissions after deployment with form detection enabled.
+  const form = document.getElementById('contact-form');
+  const fields = ['name', 'email', 'subject', 'message'];
+
+  function showError(input, show) {
+    const errorMsg = input.parentElement.querySelector('.error-msg');
+    if (!errorMsg) return;
+    if (show) {
+      input.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+      errorMsg.classList.remove('hidden');
+    } else {
+      input.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+      errorMsg.classList.add('hidden');
+    }
+  }
+
+  fields.forEach((id) => {
+    const input = document.getElementById(id);
+    input.addEventListener('input', () => {
+      showError(input, !input.checkValidity());
+    });
+    input.addEventListener('blur', () => {
+      if (input.value.trim() !== '') showError(input, !input.checkValidity());
+    });
+  });
+
+  form.addEventListener('submit', (event) => {
+    let valid = true;
+    fields.forEach((id) => {
+      const input = document.getElementById(id);
+      const fieldValid = input.checkValidity() && input.value.trim().length > 0;
+      showError(input, !fieldValid);
+      if (!fieldValid) valid = false;
+    });
+    if (!valid) {
+      event.preventDefault();
+      form.reportValidity();
+    }
+  });
+</script>
+
+</body>
+</html>
